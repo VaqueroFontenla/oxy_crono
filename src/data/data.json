@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "patient_name": "Paco",
+    "bed_number": 1,
+    "start_time": "13:55:00",
+    "press_tank": 200,
+    "liters_tank": 30,
+    "flow": 15
+  },
+  {
+    "id": 2,
+    "patient_name": "Mucha",
+    "bed_number": 5,
+    "start_time": "14:22:00",
+    "press_tank": 200,
+    "liters_tank": 30,
+    "flow": 15
+  },
+  {
+    "id": 3,
+    "patient_name": "Manolo",
+    "bed_number": 3,
+    "start_time": "14:15:00",
+    "press_tank": 200,
+    "liters_tank": 30,
+    "flow": 15
+  },
+  {
+    "id": 4,
+    "patient_name": "Loreto",
+    "bed_number": 2,
+    "start_time": "14:45:00",
+    "press_tank": 200,
+    "liters_tank": 30,
+    "flow": 15
+  },
+  {
+    "id": 5,
+    "patient_name": "Antonio",
+    "bed_number": 4,
+    "start_time": "15:05:00",
+    "press_tank": 200,
+    "liters_tank": 30,
+    "flow": 15
+  }
+]
