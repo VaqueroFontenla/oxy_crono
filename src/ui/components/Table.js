@@ -1,17 +1,17 @@
 import React from "react";
 import { Row } from "./Row";
-import PropTypes from "prop-types";
 
 export const Table = ({ data }) => {
   return (
     <div>
-      <table className="table">
+      <table>
         <thead>
           <tr>
             <th scope="col">Nombre del paciente</th>
             <th scope="col">Número de camas</th>
             <th scope="col">Hora Inicio</th>
             <th scope="col">Presión Botella</th>
+            <th scope="col">Volumen Botella</th>
             <th scope="col">Caudal</th>
             <th scope="col">Duración</th>
             <th scope="col">Hora Fin</th>
@@ -24,8 +24,3 @@ export const Table = ({ data }) => {
   );
 };
 
-Table.propTypes = {
-  data: PropTypes.array.isRequired
-};
-
-export default Table;

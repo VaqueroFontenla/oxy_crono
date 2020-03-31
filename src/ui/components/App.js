@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../stylesheets/App.css";
 import axios from 'axios';
 // import Loading from "./Loading";
-import Table from "./Table";
+import {Table} from "./Table";
+import { Date } from "./Date";
+import { Time } from "./Time";
 
 const App = () => {
   const url = "http://localhost:8080/";
@@ -30,14 +32,17 @@ const App = () => {
     fechtData();
   }, []);
   return (
-    <div className="container-fluid">
-      <div className="col-12 d-flex flex-column justify-content-center align-items-center mt-5">
-        <div className="row">
+    <div className="wrapper">
+          <Date />
+          <Time />
+      <div className="table__wrapper">
+  
+        {/* <div className="table"> */}
           {/* {isLoading && <Loading />} */}
           {/* {!isLoading && ( */}
-          <Table data={data} />
+          {/* <Table data={data} /> */}
           {/* )} */}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );
