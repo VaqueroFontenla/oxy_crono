@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import "../theme/App.css";
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/es";
+import { Button } from "antd";
 
 // import Loading from "./Loading";
 import { TablePatient } from "../components/TablePatient";
@@ -50,12 +52,17 @@ const App = () => {
     };
     fechtData();
   }, []);
+
   return (
-    <>
+    <Container>
       <Clock />
+
       <TablePatient dataSource={data} />
-    </>
+    </Container>
   );
 };
+const Container = styled.div`
+  padding: 5rem;
+`;
 
 export default App;
