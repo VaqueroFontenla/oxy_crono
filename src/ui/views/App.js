@@ -5,15 +5,13 @@ import axios from "axios";
 import moment from "moment";
 import "moment/locale/es";
 import { Button } from "antd";
-
-// import Loading from "./Loading";
 import { TablePatient } from "../components/TablePatient";
 import { Clock } from "../components/Clock";
-
+import { Modal } from "../components/Modal";
 const App = () => {
   const url = "http://localhost:8080/";
   const [data, setData] = useState([]);
-
+  const [isModalOpen, toggleModalOpen] = useState(false)
   const calculate = data => {
     const calculatedata = data.map((item, key) => {
       //Calculate Duration
@@ -52,11 +50,20 @@ const App = () => {
     };
     fechtData();
   }, []);
+  function openModal() {
+    toggleModalOpen(true)
+  }
 
+  function closeModal() {
+    toggleModalOpen(false)
+  }
   return (
     <Container>
       <Clock />
-
+      <Button type="primary" onClick={()=>openModal()}>
+          Open Modal
+        </Button>
+        <Modal visible={isModalOpen} onClose={()=>closeModal()}/>
       <TablePatient dataSource={data} />
     </Container>
   );
