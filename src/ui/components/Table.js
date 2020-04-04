@@ -1,5 +1,5 @@
-import React from "react";
 import { Table as ADTable } from "antd";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "./Button";
 
@@ -81,12 +81,12 @@ export const Table = ({ dataSource }) => {
     },
   ];
   return (
-    <Wrapper>
+    <Container>
       <ADTable dataSource={dataSource} columns={COLUMNS} />;
-    </Wrapper>
+    </Container>
   );
 };
 
-const Wrapper = styled.div`
+const Container = styled.div`
   margin-top: 24px;
 `;

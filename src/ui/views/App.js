@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import "../theme/App.css";
+import { Divider } from "antd";
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/es";
-import { Divider } from "antd";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Button } from "../components/Button";
-import { Table } from "../components/Table";
 import { Clock } from "../components/Clock";
-import { Row } from "../components/grid/Row";
 import { Col } from "../components/grid/Col";
+import { Row } from "../components/grid/Row";
 import { Modal } from "../components/Modal";
+import { Table } from "../components/Table";
+import "../theme/App.css";
 
 const App = () => {
   const url = "http://localhost:8080/";
+
   const [data, setData] = useState([]);
   const [isModalOpen, toggleModalOpen] = useState(false);
+
   const calculate = (data) => {
     const calculatedata = data.map((item, key) => {
       //Calculate Duration
@@ -45,6 +47,7 @@ const App = () => {
     });
     setData(calculatedata);
   };
+
   useEffect(() => {
     const fechtData = async () => {
       try {
@@ -54,13 +57,20 @@ const App = () => {
     };
     fechtData();
   }, []);
+
   const openModal = () => {
     toggleModalOpen(true);
-  }
+  };
 
   const closeModal = () => {
     toggleModalOpen(false);
-  }
+  };
+
+  const onCreate = values => {
+    console.log('Received values of form: ', values);
+
+  };
+  
   return (
     <Container>
       <Row justify={"end"}>
@@ -75,23 +85,27 @@ const App = () => {
 
       <Row justify={"end"}>
         <Button type="primary" size="large" onClick={() => openModal()}>
-          Añadir un paciente 
+          Añadir un paciente
         </Button>
       </Row>
-      <Modal visible={isModalOpen} onClose={() => closeModal()} />
+      <Modal
+        visible={isModalOpen}
+        onClose={() => closeModal()}
+        onCreate={onCreate}
+      />
       <Table dataSource={data} />
     </Container>
   );
 };
 const Container = styled.div`
   padding: 1rem 3rem;
-`;
+`
 
 const Title = styled.span`
   color: #1890ff;
   font-weight: bold;
   font-size: 56px;
   line-height: 64px;
-`;
+`
 
 export default App;

@@ -3,10 +3,10 @@ import moment from "moment";
 import styled from "styled-components";
 
 export const Clock = () => {
-  return <Wrapper>{moment().format("LT")}</Wrapper>;
+  return <Container>{moment().format("LT")}</Container>;
 };
 
-const Wrapper = styled.div`
+const Container = styled.div`
   height: 50px;
   width: 200px;
   color: #1890ff;

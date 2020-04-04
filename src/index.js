@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './ui/views/App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./ui/views/App";
+import * as serviceWorker from "./serviceWorker";
+import { ConfigProvider } from 'antd';
+import esES from 'antd/es/locale/es_ES';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <>
+    <ConfigProvider locale={esES}>
+      <App />
+    </ConfigProvider>
+  </>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
