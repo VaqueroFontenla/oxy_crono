@@ -28,7 +28,7 @@ export const Table = ({ dataSource }) => {
       title: "Nº cama",
       dataIndex: "bed",
       key: "bed",
-      align: 'center',
+      align: "center",
       sorter: (a, b) => a.bed - b.bed,
     },
     {
@@ -42,32 +42,31 @@ export const Table = ({ dataSource }) => {
       title: "Presion (bar)",
       dataIndex: "press",
       key: "press",
-      align: 'center',
+      align: "center",
     },
     {
       title: "Volumen (l)",
       dataIndex: "volume",
       key: "volume",
-      align: 'center',
+      align: "center",
     },
     {
       title: "Caudal (l/m)",
       dataIndex: "flow",
       key: "flow",
-      align: 'center',
+      align: "center",
     },
     {
       title: "Duración (h)",
       dataIndex: "duration",
       key: "duration",
-      align: 'center',
+      align: "center",
     },
     {
       title: "Fin",
       dataIndex: "finish",
       key: "finish",
-      align: 'center',
-      defaultSortOrder: "ascend",
+      align: "center",
       sorter: (a, b) =>
         moment(a.finish, "HH:mm").unix() - moment(b.finish, "HH:mm").unix(),
     },
@@ -75,18 +74,22 @@ export const Table = ({ dataSource }) => {
       title: "Restante",
       dataIndex: "remaining",
       key: "remaining",
-      align: 'center',
+      align: "center",
+      defaultSortOrder: "ascend",
       sorter: (a, b) =>
         moment(a.remaining, "HH:mm").unix() -
         moment(b.remaining, "HH:mm").unix(),
       render: (record) => {
-        console.log(record)
+        console.log(record);
         if (moment(record, "HH:mm").unix() < 1585958400) {
-         return <RedContainer>{record}</RedContainer>;
+          return <RedContainer>{record}</RedContainer>;
         }
-        if (1585958400 < moment(record, "HH:mm").unix() &&  moment(record, "HH:mm").unix() < 1585962000) {
+        if (
+          1585958400 < moment(record, "HH:mm").unix() &&
+          moment(record, "HH:mm").unix() < 1585962000
+        ) {
           return <YellowContainer>{record}</YellowContainer>;
-        } 
+        }
         if (moment(record, "HH:mm").unix() > 1585962000) {
           return <GreenContainer>{record}</GreenContainer>;
         }
@@ -95,15 +98,16 @@ export const Table = ({ dataSource }) => {
     {
       title: "Acciones",
       key: "action",
+      align: "center",
       render: () => (
-        <span>
-          <Button type="primary" size="small" onClick={() => openModal()}>
+        <ActionsContainer>
+          <Button type="primary" size="large" onClick={() => openModal()}>
             Editar
           </Button>
-          <Button type="cancel" size="small" onClick={() => openModal()}>
+          <Button type="danger" size="large" onClick={() => openModal()}>
             Eliminar
           </Button>
-        </span>
+        </ActionsContainer>
       ),
     },
   ];
@@ -114,19 +118,32 @@ export const Table = ({ dataSource }) => {
   );
 };
 
+const ActionsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 const Container = styled.div`
   margin-top: 24px;
 `;
 
 const GreenContainer = styled.div`
   background-color: green;
+  padding: 12px;
+  font-weight: bold;
   color: white;
+  border-radius: 4px;
 `;
 const YellowContainer = styled.div`
   background-color: yellow;
+  padding: 12px;
+  font-weight: bold;
   color: white;
+  border-radius: 4px;
 `;
 const RedContainer = styled.div`
-  background-color: red;
+  background-color: #ff4d4f;
+  padding: 12px;
+  font-weight: bold;
   color: white;
+  border-radius: 4px;
 `;
