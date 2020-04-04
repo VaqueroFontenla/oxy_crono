@@ -21,7 +21,7 @@
     "id": 3,
     "name": "Manolo",
     "bed": 3,
-    "start": "18:15",
+    "start": "15:15",
     "press": 200,
     "volume": 30,
     "flow": 15
@@ -30,7 +30,7 @@
     "id": 4,
     "name": "Loreto",
     "bed": 2,
-    "start": "19:45",
+    "start": "16:25",
     "press": 200,
     "volume": 30,
     "flow": 15

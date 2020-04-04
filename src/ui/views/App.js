@@ -38,6 +38,8 @@ const App = () => {
       const now = moment().format("x");
       const endHourTimeStamp = endHour.format("x");
       const remaining = moment(endHourTimeStamp - now).format("HH:mm");
+      console.log(moment("02:00", "HH:mm").unix())
+      console.log(moment("03:00", "HH:mm").unix())
       return {
         ...item,
         duration: duration,
