@@ -66,11 +66,10 @@ const App = () => {
     toggleModalOpen(false);
   };
 
-  const onCreate = values => {
-    console.log('Received values of form: ', values);
-
+  const onCreate = (values) => {
+    console.log("Received values of form: ", values);
   };
-  
+
   return (
     <Container>
       <Row justify={"end"}>
@@ -90,22 +89,23 @@ const App = () => {
       </Row>
       <Modal
         visible={isModalOpen}
-        onClose={() => closeModal()}
+        onCancel={() => closeModal()}
         onCreate={onCreate}
       />
       <Table dataSource={data} />
     </Container>
   );
 };
+
 const Container = styled.div`
   padding: 1rem 3rem;
-`
+`;
 
 const Title = styled.span`
   color: #1890ff;
   font-weight: bold;
   font-size: 56px;
   line-height: 64px;
-`
+`;
 
 export default App;
