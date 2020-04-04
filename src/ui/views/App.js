@@ -4,15 +4,19 @@ import "../theme/App.css";
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/es";
-import { Button } from "antd";
-import { TablePatient } from "../components/TablePatient";
+import { Divider } from "antd";
+import { Button } from "../components/Button";
+import { Table } from "../components/Table";
 import { Clock } from "../components/Clock";
+import { Row } from "../components/grid/Row";
+import { Col } from "../components/grid/Col";
 import { Modal } from "../components/Modal";
+
 const App = () => {
   const url = "http://localhost:8080/";
   const [data, setData] = useState([]);
-  const [isModalOpen, toggleModalOpen] = useState(false)
-  const calculate = data => {
+  const [isModalOpen, toggleModalOpen] = useState(false);
+  const calculate = (data) => {
     const calculatedata = data.map((item, key) => {
       //Calculate Duration
       const hoursDuration = parseInt(
@@ -21,7 +25,7 @@ const App = () => {
       const minutesDuration = ((item.press * item.volume) / item.flow) % 60;
       const duration = moment({
         hour: hoursDuration,
-        minute: minutesDuration
+        minute: minutesDuration,
       }).format("HH:mm");
       //Calculate End Hour
       const endHour = moment(item.start, "HH:mm")
@@ -36,7 +40,7 @@ const App = () => {
         ...item,
         duration: duration,
         finish: formattedEndHour,
-        remaining: remaining
+        remaining: remaining,
       };
     });
     setData(calculatedata);
@@ -50,26 +54,44 @@ const App = () => {
     };
     fechtData();
   }, []);
-  function openModal() {
-    toggleModalOpen(true)
+  const openModal = () => {
+    toggleModalOpen(true);
   }
 
-  function closeModal() {
-    toggleModalOpen(false)
+  const closeModal = () => {
+    toggleModalOpen(false);
   }
   return (
     <Container>
-      <Clock />
-      <Button type="primary" onClick={()=>openModal()}>
-          Open Modal
+      <Row justify={"end"}>
+        <Clock />
+      </Row>
+      <Divider />
+      <Row justify={"start"}>
+        <Col span={5}>
+          <Title>Crono</Title>
+        </Col>
+      </Row>
+
+      <Row justify={"end"}>
+        <Button type="primary" size="large" onClick={() => openModal()}>
+          Añadir un paciente 
         </Button>
-        <Modal visible={isModalOpen} onClose={()=>closeModal()}/>
-      <TablePatient dataSource={data} />
+      </Row>
+      <Modal visible={isModalOpen} onClose={() => closeModal()} />
+      <Table dataSource={data} />
     </Container>
   );
 };
 const Container = styled.div`
-  padding: 5rem;
+  padding: 1rem 3rem;
+`;
+
+const Title = styled.span`
+  color: #1890ff;
+  font-weight: bold;
+  font-size: 56px;
+  line-height: 64px;
 `;
 
 export default App;
