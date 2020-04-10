@@ -1,20 +1,18 @@
-import { Divider } from "antd";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/locale/es";
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import * as apiClient from "../../core/apiClient";
 import { Button } from "../components/Button";
 import { Clock } from "../components/Clock";
 import { Col } from "../components/grid/Col";
 import { Row } from "../components/grid/Row";
 import { Modal } from "../components/Modal";
 import { Table } from "../components/Table";
+import { Divider } from "antd";
 import "../theme/App.css";
 
 const App = () => {
-  const url = "http://localhost:8080/";
-
   const [data, setData] = useState([]);
   const [isModalOpen, toggleModalOpen] = useState(false);
 
@@ -30,7 +28,7 @@ const App = () => {
         minute: minutesDuration,
       }).format("HH:mm");
       //Calculate End Hour
-      const endHour = moment(item.start, "HH:mm")
+      const endHour = moment(item.start)
         .add(hoursDuration, "hours")
         .add(minutesDuration, "minutes");
       const formattedEndHour = endHour.format("HH:mm");
@@ -38,10 +36,9 @@ const App = () => {
       const now = moment().format("x");
       const endHourTimeStamp = endHour.format("x");
       const remaining = moment(endHourTimeStamp - now).format("HH:mm");
-      console.log(moment("02:00", "HH:mm").unix())
-      console.log(moment("03:00", "HH:mm").unix())
       return {
         ...item,
+        start: moment(item.start).format("HH:mm"),
         duration: duration,
         finish: formattedEndHour,
         remaining: remaining,
@@ -52,10 +49,8 @@ const App = () => {
 
   useEffect(() => {
     const fechtData = async () => {
-      try {
-        const result = await axios(url);
-        calculate(result.data);
-      } catch (error) {}
+      const result = await apiClient.getAllBeds();
+      calculate(result);
     };
     fechtData();
   }, []);
