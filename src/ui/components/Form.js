@@ -6,7 +6,7 @@ import { Col } from "./grid/Col";
 import { Row } from "./grid/Row";
 
 export const FormPatient = ({ form, layout, data }) => {
- console.log(data);
+
   useEffect(() => {
     form.setFieldsValue({
       name: data ? data.name : undefined,

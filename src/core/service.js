@@ -33,7 +33,7 @@ export const addBed = async (values) => {
     );
     if (response.status === 201) {
       console.log(
-        "El nuevo paciente/cama ha sido almacenado con id: " + response.data.id
+        "El nuevo registro ha sido almacenado con id: " + response.data.id
       );
     }
   } catch (error) {
@@ -48,7 +48,23 @@ export const deleteBedData = async (id) => {
     );
     if (response.status === 201) {
       console.log(
-        "El paciente/cama ha sido eliminado "
+        "El registro ha sido eliminado "
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateBed = async ( id, values) => {  
+  try {
+    const response = await axios.put(
+      `${url}/update/${id}`,
+      mapper.mapFormToApi(values)
+    );
+    if (response.status === 201) {
+      console.log(
+        "El registro ha sido actualizado"
       );
     }
   } catch (error) {

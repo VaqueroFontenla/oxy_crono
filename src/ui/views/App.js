@@ -16,14 +16,15 @@ import "../theme/App.css";
 const App = () => {
   const [data, setData] = useState([]);
   const [bedInfo, setBedInfo] = useState(undefined);
-  const [idDelete, setIdDelete] = useState(false);
+  const [idDelete, setIdDelete] = useState(undefined);
+  const [idUpdate, setIdUpdate] = useState(undefined);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const [isAlertOpen, toggleAlertOpen] = useState(false);
 
   const fechtData = async () => {
     const result = await service.getAllBeds();
     calculate(result);
-    //setTimeout(fechtData, 60000);
+    setTimeout(fechtData, 60000);
   };
 
   const calculate = (data) => {
@@ -64,11 +65,12 @@ const App = () => {
     fechtData();
     closeAlert()
   };
-  
+
   const getBedData = async (id) => {
+    setIdUpdate(id)
     const result = await service.getBed(id);
     setBedInfo(result);
-    toggleModalOpen(true);
+    openModal();
   };
 
   const openModal = () => {
@@ -95,6 +97,13 @@ const App = () => {
     closeModal();
   };
 
+  const onUpdate = async (values) => {
+    await service.updateBed(idUpdate, values);
+    setIdUpdate(undefined)
+    fechtData();
+    closeModal();
+  };
+
   return (
     <Container>
       <Row justify={"end"}>
@@ -117,6 +126,7 @@ const App = () => {
         visible={isModalOpen}
         onCancel={() => closeModal()}
         onCreate={onCreate}
+        onUpdate={onUpdate}
       />
       <Alert
         visible={isAlertOpen}

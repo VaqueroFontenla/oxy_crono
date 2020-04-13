@@ -2,14 +2,14 @@ import React, {useEffect} from "react";
 import { Form, Modal as ADModal } from "antd";
 import { FormPatient } from "./Form";
 
-export const Modal = ({ visible, onCreate, onCancel, data }) => {
+export const Modal = ({ visible, onCreate, onUpdate, onCancel, data }) => {
   const [form] = Form.useForm();
 
   return (
     <ADModal
       title="Añadir paciente"
       visible={visible}
-      okText="Guardar"
+      okText= {data ? "Actualizar": "Guardar"}
       cancelText="Cancelar"
       onCancel={onCancel}
       onOk={() => {
@@ -17,7 +17,7 @@ export const Modal = ({ visible, onCreate, onCancel, data }) => {
           .validateFields()
           .then((values) => {
             form.resetFields();
-            onCreate(values);
+            data ? onUpdate(values) : onCreate(values);
           })
           .catch((info) => {
             console.log("Validate Failed:", info);

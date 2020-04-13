@@ -83,7 +83,7 @@ export const Table = ({ dataSource, editBed, deleteBed }) => {
             </RedContainer>
           );
         }
-        if (DEADLINE_DANGER < moment(remaining, "x") < DEADLINE_MOD) {
+        if (DEADLINE_DANGER < moment(remaining, "x")  && moment(remaining, "x") < DEADLINE_MOD) {
           return (
             <YellowContainer>
               <Countdown valueStyle={stylesCountDown} value={record} onFinish={onFinish} />
