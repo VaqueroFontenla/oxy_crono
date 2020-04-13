@@ -78,6 +78,7 @@ const App = () => {
   };
 
   const closeModal = () => {
+    setBedInfo();
     toggleModalOpen(false);
   };
 
@@ -99,7 +100,8 @@ const App = () => {
 
   const onUpdate = async (values) => {
     await service.updateBed(idUpdate, values);
-    setIdUpdate(undefined)
+    setIdUpdate(undefined);
+    setBedInfo();
     fechtData();
     closeModal();
   };
