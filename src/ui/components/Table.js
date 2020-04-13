@@ -3,40 +3,38 @@ import moment from "moment";
 import { Table as ADTable } from "antd";
 import styled from "styled-components";
 import { Button } from "./Button";
+import { Statistic } from "antd";
+import * as sortBy from "../assets/js/sorter";
 
-export const Table = ({ dataSource }) => {
-  const openModal = () => {};
+export const Table = ({ dataSource, openModal }) => {
+  const { Countdown } = Statistic;
+
+  const DEADLINE_DANGER = 7200000;
+  const DEADLINE_MOD = 10800000;
+
+  function onFinish() {
+    console.log("finished!");
+  }
 
   const COLUMNS = [
     {
       title: "Nombre",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => {
-        const aString = a.name.toLowerCase();
-        const bString = b.name.toLowerCase();
-        if (aString < bString) {
-          return -1;
-        } else if (aString > bString) {
-          return 1;
-        } else {
-          return 0;
-        }
-      },
+      sorter: sortBy.sortByName,
     },
     {
       title: "Nº cama",
       dataIndex: "bed",
       key: "bed",
       align: "center",
-      sorter: (a, b) => a.bed - b.bed,
+      sorter: sortBy.sortByBed,
     },
     {
       title: "Inicio",
       dataIndex: "start",
       key: "start",
-      sorter: (a, b) =>
-        moment(a.start, "HH:mm").unix() - moment(b.start, "HH:mm").unix(),
+      sorter: sortBy.sortByStartTime,
     },
     {
       title: "Presion (bar)",
@@ -67,8 +65,7 @@ export const Table = ({ dataSource }) => {
       dataIndex: "finish",
       key: "finish",
       align: "center",
-      sorter: (a, b) =>
-        moment(a.finish, "HH:mm").unix() - moment(b.finish, "HH:mm").unix(),
+      sorter: sortBy.sortByFinishTime,
     },
     {
       title: "Restante",
@@ -76,22 +73,29 @@ export const Table = ({ dataSource }) => {
       key: "remaining",
       align: "center",
       defaultSortOrder: "ascend",
-      sorter: (a, b) =>
-        moment(a.remaining, "HH:mm").unix() -
-        moment(b.remaining, "HH:mm").unix(),
+      sorter: sortBy.sortByRemainingTime,
       render: (record) => {
-        console.log(record);
-        if (moment(record, "HH:mm").unix() < 1585958400) {
-          return <RedContainer>{record}</RedContainer>;
+        const remaining = record - moment();
+        if (moment(remaining, "x") < DEADLINE_DANGER) {
+          return (
+            <RedContainer>
+              <Countdown valueStyle={stylesCountDown} value={record} onFinish={onFinish} />
+            </RedContainer>
+          );
         }
-        if (
-          1585958400 < moment(record, "HH:mm").unix() &&
-          moment(record, "HH:mm").unix() < 1585962000
-        ) {
-          return <YellowContainer>{record}</YellowContainer>;
+        if (DEADLINE_DANGER < moment(remaining, "x") < DEADLINE_MOD) {
+          return (
+            <YellowContainer>
+              <Countdown valueStyle={stylesCountDown} value={record} onFinish={onFinish} />
+            </YellowContainer>
+          );
         }
-        if (moment(record, "HH:mm").unix() > 1585962000) {
-          return <GreenContainer>{record}</GreenContainer>;
+        if (moment(remaining, "x") > DEADLINE_MOD) {
+          return (
+            <GreenContainer>
+              <Countdown valueStyle={stylesCountDown} value={record} onFinish={onFinish} />
+            </GreenContainer>
+          );
         }
       },
     },
@@ -99,12 +103,20 @@ export const Table = ({ dataSource }) => {
       title: "Acciones",
       key: "action",
       align: "center",
-      render: () => (
+      render: (record) => (
         <ActionsContainer>
-          <Button type="primary" size="large" onClick={() => openModal()}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => openModal(record.id)}
+          >
             Editar
           </Button>
-          <Button type="danger" size="large" onClick={() => openModal()}>
+          <Button
+            type="danger"
+            size="large"
+            onClick={() => openModal(record.id)}
+          >
             Eliminar
           </Button>
         </ActionsContainer>
@@ -127,23 +139,22 @@ const Container = styled.div`
 `;
 
 const GreenContainer = styled.div`
-  background-color: green;
-  padding: 12px;
-  font-weight: bold;
-  color: white;
+  background-color: #00ff0080;
+  padding: 6px;
   border-radius: 4px;
 `;
 const YellowContainer = styled.div`
-  background-color: yellow;
-  padding: 12px;
-  font-weight: bold;
-  color: white;
+  background-color: #ffff0080;
+  padding: 6px;
   border-radius: 4px;
 `;
 const RedContainer = styled.div`
-  background-color: #ff4d4f;
-  padding: 12px;
-  font-weight: bold;
-  color: white;
+  background-color: #ff4d4f80;
+  padding: 6px;
   border-radius: 4px;
 `;
+
+const stylesCountDown = {
+  fontWeight: "bold",
+  fontSize: 14,
+};
