@@ -25,8 +25,7 @@ export const getBed = async (id) => {
   }
 };
 
-export const addBed = async (values) => {
-  
+export const addBed = async (values) => {  
   try {
     const response = await axios.post(
       `${url}/add/`,
@@ -34,7 +33,22 @@ export const addBed = async (values) => {
     );
     if (response.status === 201) {
       console.log(
-        "El nuevo Post ha sido almacenado con id: " + response.data.id
+        "El nuevo paciente/cama ha sido almacenado con id: " + response.data.id
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteBedData = async (id) => {  
+  try {
+    const response = await axios.delete(
+      `${url}/delete/${id}`,
+    );
+    if (response.status === 201) {
+      console.log(
+        "El paciente/cama ha sido eliminado "
       );
     }
   } catch (error) {

@@ -5,8 +5,6 @@ import { FormPatient } from "./Form";
 export const Modal = ({ visible, onCreate, onCancel, data }) => {
   const [form] = Form.useForm();
 
-
-
   return (
     <ADModal
       title="Añadir paciente"

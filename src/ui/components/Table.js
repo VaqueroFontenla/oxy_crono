@@ -6,7 +6,7 @@ import { Button } from "./Button";
 import { Statistic } from "antd";
 import * as sortBy from "../assets/js/sorter";
 
-export const Table = ({ dataSource, openModal }) => {
+export const Table = ({ dataSource, editBed, deleteBed }) => {
   const { Countdown } = Statistic;
 
   const DEADLINE_DANGER = 7200000;
@@ -108,14 +108,14 @@ export const Table = ({ dataSource, openModal }) => {
           <Button
             type="primary"
             size="large"
-            onClick={() => openModal(record.id)}
+            onClick={() => editBed(record.id)}
           >
             Editar
           </Button>
           <Button
             type="danger"
             size="large"
-            onClick={() => openModal(record.id)}
+            onClick={() => deleteBed(record.id)}
           >
             Eliminar
           </Button>
