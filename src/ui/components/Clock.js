@@ -1,8 +1,12 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
 import moment from "moment";
 import styled from "styled-components";
 
 export const Clock = () => {
+  const [, forceUpdate] = useState();
+  useEffect(() => {
+    setTimeout(forceUpdate, 60000);
+  }, []);
   return <Container>{moment().format("LT")}</Container>;
 };
 

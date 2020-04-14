@@ -16,7 +16,7 @@ export const FormPatient = ({ form, layout, data }) => {
       volume: data ? data.volume : undefined,
       flow: data ? data.flow : undefined,
     });
-  }, [data]);
+  }, [form, data]);
 
   return (
     <Form form={form} layout={layout}>

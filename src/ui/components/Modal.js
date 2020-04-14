@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
 import { Form, Modal as ADModal } from "antd";
+import React from "react";
 import { FormPatient } from "./Form";
 
 export const Modal = ({ visible, onCreate, onUpdate, onCancel, data }) => {

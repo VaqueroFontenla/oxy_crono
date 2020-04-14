@@ -3,7 +3,7 @@ import * as mapper from "./mapper";
 
 const url = "https://us-central1-fir-first-app-1156c.cloudfunctions.net/beds";
 
-export const getAllBeds = async () => {
+export const getAllRecords = async () => {
   try {
     const response = await axios(url);
     if (response.status === 200) {
@@ -14,7 +14,7 @@ export const getAllBeds = async () => {
   }
 };
 
-export const getBed = async (id) => {
+export const getRecord = async (id) => {
   try {;
     const response = await axios(`${url}/bed/${id}`);
     if (response.status === 200) {
@@ -25,7 +25,7 @@ export const getBed = async (id) => {
   }
 };
 
-export const addBed = async (values) => {  
+export const addRecord = async (values) => {  
   try {
     const response = await axios.post(
       `${url}/add/`,
@@ -41,12 +41,12 @@ export const addBed = async (values) => {
   }
 };
 
-export const deleteBedData = async (id) => {  
+export const deleteRecord = async (id) => {  
   try {
     const response = await axios.delete(
       `${url}/delete/${id}`,
     );
-    if (response.status === 201) {
+    if (response.status === 200) {
       console.log(
         "El registro ha sido eliminado "
       );
@@ -56,7 +56,7 @@ export const deleteBedData = async (id) => {
   }
 };
 
-export const updateBed = async ( id, values) => {  
+export const updateRecord = async ( id, values) => {  
   try {
     const response = await axios.put(
       `${url}/update/${id}`,
