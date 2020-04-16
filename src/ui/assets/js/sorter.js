@@ -17,11 +17,9 @@ export const sortByBed = (a, b) => a.bed - b.bed;
 export const sortByStartTime = (a, b) =>
   moment(a.start, "HH:mm").unix() - moment(b.start, "HH:mm").unix();
 
-export const sortByFinishTime = (a, b) =>
-  moment(a.finish, "HH:mm").unix() - moment(b.finish, "HH:mm").unix();
-
-export const sortByRemainingTime = (a, b) =>{
-  const aRemaining =moment(a.finish, 'HH:mm').format('x') - moment().format('x');
-  const bRemainig = moment(b.finish, 'HH:mm').format('x') - moment().format('x');
-  return moment(aRemaining, "x") -moment(bRemainig, "x");
-}
+export const sortByRemainingTime = (a, b) => {
+  const calculate = (item) => {
+    return moment(item.remaining, "x").format('x')
+  };
+  return calculate(a) - calculate(b);
+};

@@ -55,7 +55,6 @@ export const Table = ({ dataSource, editRecord, deleteRecord }) => {
       dataIndex: "finish",
       key: "finish",
       align: "center",
-      sorter: sortBy.sortByFinishTime,
     },
     {
       title: "Restante",
