@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/oxygen_tank_crono/precache-manifest.77ded7bebfac1a1f9eceaf5f96c0388b.js"
+  "/oxygen_tank_crono/precache-manifest.4e51a5fb25e294218bb4a3246e849f90.js"
 );
 
 self.addEventListener('message', (event) => {
