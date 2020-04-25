@@ -3,15 +3,34 @@ import React from "react";
 import styled from "styled-components";
 import * as sortBy from "../assets/js/sorter";
 import { Button } from "./Button";
+import { Filter } from "./Filter";
 import { CountdownCell } from "./CountDown";
+import { SearchOutlined } from "@ant-design/icons";
 
-export const Table = ({ dataSource, editRecord, deleteRecord }) => {
+export const Table = ({
+  dataSource,
+  editRecord,
+  deleteRecord,
+  currentFilterValueName,
+  onChangeFilterName,
+  currentFilterValueBed,
+  onChangeFilterBed,
+}) => {
   const COLUMNS = [
     {
       title: "Nombre",
       dataIndex: "name",
       key: "name",
       sorter: sortBy.sortByName,
+      filterDropdown: (
+        <Filter
+          onChangeFilter={onChangeFilterName}
+          currentFilterValue={currentFilterValueName}
+        />
+      ),
+      filterIcon: (filtered) => (
+        <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+      ),
     },
     {
       title: "Nº cama",
@@ -19,6 +38,15 @@ export const Table = ({ dataSource, editRecord, deleteRecord }) => {
       key: "bed",
       align: "center",
       sorter: sortBy.sortByBed,
+      filterDropdown: (
+        <Filter
+          onChangeFilter={onChangeFilterBed}
+          currentFilterValue={currentFilterValueBed}
+        />
+      ),
+      filterIcon: (filtered) => (
+        <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+      ),
     },
     {
       title: "Inicio",

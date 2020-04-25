@@ -15,11 +15,14 @@ import "../theme/App.css";
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [recordInfo, setRecordInfo] = useState(undefined);
   const [idDelete, setIdDelete] = useState(undefined);
   const [idUpdate, setIdUpdate] = useState(undefined);
   const [isModalOpen, toggleModalOpen] = useState(false);
   const [isAlertOpen, toggleAlertOpen] = useState(false);
+  const [currentFilterValueName, setCurrentFilterValueName] = useState("");
+  const [currentFilterValueBed, setCurrentFilterValueBed] = useState();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -33,6 +36,33 @@ const App = () => {
     loadRecords();
   }, []);
 
+  useEffect(() => {
+    const filterData = data.filter((entry) =>
+      entry.name.includes(currentFilterValueName)
+    );
+    
+    filterData
+      ? setFilteredData(filterData)
+      : setFilteredData(data);
+  }, [currentFilterValueName, data]);
+
+  useEffect(() => {
+    const filterData = data.filter(
+      entry => entry.bed === parseInt(currentFilterValueBed)
+    );
+
+    filterData.length
+      ? setFilteredData(filterData)
+      : setFilteredData(data);
+  }, [currentFilterValueBed, data]);
+
+  const onChangeFilterName = (e) => {
+    setCurrentFilterValueName(e.target.value);
+  };
+  const onChangeFilterBed = (e) => {
+    setCurrentFilterValueBed(e.target.value);
+    console.log(e.target.value);
+  };
   return (
     <Container>
       <Row justify={"end"}>
@@ -62,7 +92,15 @@ const App = () => {
         onCancel={() => closeAlert()}
         onDelete={deleteRecord}
       />
-      <Table dataSource={data} editRecord={getRecord} deleteRecord={openAlert} />
+      <Table
+        currentFilterValueName={currentFilterValueName}
+        currentFilterValueBed={currentFilterValueBed}
+        onChangeFilterName={onChangeFilterName}
+        onChangeFilterBed={onChangeFilterBed}
+        dataSource={filteredData}
+        editRecord={getRecord}
+        deleteRecord={openAlert}
+      />
     </Container>
   );
 
@@ -75,49 +113,49 @@ const App = () => {
     toggleModalOpen(false);
   }
 
-  function openAlert (id) {
+  function openAlert(id) {
     setIdDelete(id);
     toggleAlertOpen(true);
-  };
+  }
 
-  function closeAlert () {
+  function closeAlert() {
     setIdDelete(undefined);
     toggleAlertOpen(false);
-  };
+  }
 
   async function loadRecords() {
     const result = await service.getAllRecords();
     const calculateData = calculate.calculate(result);
     setData(calculateData);
+    setFilteredData(calculateData);
   }
 
-  async function getRecord (id) {
+  async function getRecord(id) {
     setIdUpdate(id);
     const result = await service.getRecord(id);
     setRecordInfo(result);
     openModal();
-  };
+  }
 
-  async function onCreate (values)  {
+  async function onCreate(values) {
     await service.addRecord(values);
     loadRecords();
     closeModal();
-  };
+  }
 
-  async function onUpdate (values)  {
+  async function onUpdate(values) {
     await service.updateRecord(idUpdate, values);
     setIdUpdate(undefined);
     setRecordInfo();
     loadRecords();
     closeModal();
-  };
+  }
 
-  async function deleteRecord () {
+  async function deleteRecord() {
     await service.deleteRecord(idDelete);
     loadRecords();
     closeAlert();
-  };
-
+  }
 };
 
 export default App;
