@@ -54,7 +54,7 @@ Esto quiere decir que se colocarán primero los registros cuyas bombonas o botel
 
 Puedes cambiar el orden de los registros por **nombre**, **Nº de cama**, **Hora de inicio** y **Tiempo restante**, pulsando sobre el nombre del campo.
 
-    ![Ordenar registro](images/order.png "Ordenar registros")
+![Ordenar registro](images/order.png "Ordenar registros")
 
 
 

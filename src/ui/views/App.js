@@ -10,6 +10,8 @@ import { Row } from "../components/grid/Row";
 import { Modal } from "../components/Modal";
 import { Alert } from "../components/Alert";
 import { Table } from "../components/Table";
+import { Help } from "../components/Help";
+import { HelpIcon } from "../components/HelpIcon";
 import { Title, Container } from "./App.styles";
 import "../theme/App.css";
 
@@ -20,6 +22,7 @@ const App = () => {
   const [idDelete, setIdDelete] = useState(undefined);
   const [idUpdate, setIdUpdate] = useState(undefined);
   const [isModalOpen, toggleModalOpen] = useState(false);
+  const [isModalHelp, toggleModalHelp] = useState(false);
   const [isAlertOpen, toggleAlertOpen] = useState(false);
   const [currentFilterValueName, setCurrentFilterValueName] = useState("");
   const [currentFilterValueBed, setCurrentFilterValueBed] = useState();
@@ -40,20 +43,16 @@ const App = () => {
     const filterData = data.filter((entry) =>
       entry.name.includes(currentFilterValueName)
     );
-    
-    filterData
-      ? setFilteredData(filterData)
-      : setFilteredData(data);
+
+    filterData ? setFilteredData(filterData) : setFilteredData(data);
   }, [currentFilterValueName, data]);
 
   useEffect(() => {
     const filterData = data.filter(
-      entry => entry.bed === parseInt(currentFilterValueBed)
+      (entry) => entry.bed === parseInt(currentFilterValueBed)
     );
 
-    filterData.length
-      ? setFilteredData(filterData)
-      : setFilteredData(data);
+    filterData.length ? setFilteredData(filterData) : setFilteredData(data);
   }, [currentFilterValueBed, data]);
 
   const onChangeFilterName = (e) => {
@@ -61,12 +60,13 @@ const App = () => {
   };
   const onChangeFilterBed = (e) => {
     setCurrentFilterValueBed(e.target.value);
-    console.log(e.target.value);
   };
   return (
     <Container>
       <Row justify={"end"}>
         <Clock />
+        <HelpIcon onClick={openHelp} />
+        <Help visible={isModalHelp} onCancel={() => closeHelp()} />
       </Row>
       <Divider />
       <Row justify={"start"}>
@@ -103,6 +103,13 @@ const App = () => {
       />
     </Container>
   );
+
+  function openHelp() {
+    toggleModalHelp(true);
+  }
+  function closeHelp() {
+    toggleModalHelp(false);
+  }
 
   function openModal() {
     toggleModalOpen(true);

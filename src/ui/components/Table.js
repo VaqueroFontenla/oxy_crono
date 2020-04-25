@@ -119,9 +119,9 @@ export const Table = ({
   ];
   return (
     <Container>
-      <ADTable dataSource={dataSource} columns={COLUMNS} />;
+      <ADTable dataSource={dataSource} columns={COLUMNS} />
     </Container>
-  );
+  )
 };
 
 const ActionsContainer = styled.div`
